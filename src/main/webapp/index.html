@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="styles/main.css"/>
+
+</head>
+<body ng-app="beerApp">
+Howdy!
+
+<div ng-view class="mydiv"></div>
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/StartController.js"></script>
+<script src="scripts/services/BeerService.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
