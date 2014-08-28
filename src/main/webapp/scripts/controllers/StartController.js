@@ -11,5 +11,4 @@ angular.module('beerApp')
 
         $scope.awesomeBeer = BeerService.getBeer();
 
-
     }]);

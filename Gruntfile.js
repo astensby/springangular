@@ -362,6 +362,9 @@ module.exports = function (grunt) {
         },
         uglify: {
             //using generated task
+            options: {
+                sourceMap: true
+            }
 
         },
         concat: {
