@@ -41,9 +41,13 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: ['newer:jshint:test', 'karma']
             },
-            compass: {
+//            compass: {
+//                files: ['<%= monokkel.app %>/styles/{,*/}*.{scss,sass}'],
+//                tasks: ['compass:server', 'autoprefixer']
+//            },
+            sass: {
                 files: ['<%= monokkel.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer']
+                tasks: ['sass:server', 'autoprefixer']
             },
             gruntfile: {
                 files: ['Gruntfile.js']
@@ -162,35 +166,48 @@ module.exports = function (grunt) {
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
-        compass: {
-            options: {
-                sassDir: '<%= monokkel.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= monokkel.app %>/images',
-                javascriptsDir: '<%= monokkel.app %>/scripts',
-                fontsDir: '<%= monokkel.app %>/styles/fonts',
-                importPath: '<%= monokkel.app %>/bower_components',
-                httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
-                relativeAssets: false,
-                assetCacheBuster: false,
-                raw: 'Sass::Script::Number.precision = 10\n',
-                sourcemap: true
-            },
+        sass: {
             dist: {
                 options: {
-                    generatedImagesDir: '<%= monokkel.dist %>/images/generated'
-                }
-            },
-            server: {
-                options: {
-                    debugInfo: true
+                    style: 'expanded'
+                },
+                files: {
+                    '.tmp/styles/main.css': '<%= monokkel.app %>/styles/main.scss',
+                    '.tmp/styles/screen.css': '<%= monokkel.app %>/styles/screen.scss',
+                    '.tmp/styles/screen-ie.css': '<%= monokkel.app %>/styles/screen-ie.scss',
+                    '.tmp/styles/colorbrewer.css': '<%= monokkel.app %>/styles/colorbrewer.scss'
                 }
             }
         },
 
+//        compass: {
+//            options: {
+//                sassDir: '<%= monokkel.app %>/styles',
+//                cssDir: '.tmp/styles',
+//                generatedImagesDir: '.tmp/images/generated',
+//                imagesDir: '<%= monokkel.app %>/images',
+//                javascriptsDir: '<%= monokkel.app %>/scripts',
+//                fontsDir: '<%= monokkel.app %>/styles/fonts',
+//                importPath: '<%= monokkel.app %>/bower_components',
+//                httpImagesPath: '/images',
+//                httpGeneratedImagesPath: '/images/generated',
+//                httpFontsPath: '/styles/fonts',
+//                relativeAssets: false,
+//                assetCacheBuster: false,
+//                raw: 'Sass::Script::Number.precision = 10\n',
+//                sourcemap: true
+//            },
+//            dist: {
+//                options: {
+//                    generatedImagesDir: '<%= monokkel.dist %>/images/generated'
+//                }
+//            },
+//            server: {
+//                options: {
+//                    debugInfo: true
+//                }
+//            }
+//        },
 
         // Renames files for browser caching purposes
         rev: {
@@ -340,13 +357,16 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
-                'compass:server'
+//                'compass:server'
+                'sass'
             ],
             test: [
-                'compass'
+//                'compass'
+                'sass'
             ],
             dist: [
-                'compass:dist',
+//                'compass:dist',
+                'sass:dist',
                 'imagemin',
                 'svgmin'
             ]
